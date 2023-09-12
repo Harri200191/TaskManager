@@ -26,10 +26,14 @@ const getTasks = async (req, resp) => {
 };
 
 const getTask = async (req, resp) => {
-    const {id} = req.params;
-
     try{
+        const {id} = req.params;
         const task = await task_model.findById(id);
+
+        if (!task){
+            return resp.status(404).json(`NO TASK WITH THIS ID: ${id}`);
+        };
+
         resp.status(200).json(task);
     }
     catch (error){
