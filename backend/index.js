@@ -3,6 +3,7 @@
 const express = require("express");
 const connectDB = require("./config/connectDB");
 const task_model = require("./model/task_model");
+const taskroute = require("./routes/taskroute");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -10,22 +11,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use(taskroute);
 
 app.get("/", (req, resp) => {
     resp.send("Home Page");
-});
-
-// GET OR READ DATA
-app.get("/api/tasks", async (req, resp) => {
-    try{
-        const task = await task_model.find();
-        resp.status(200).json(task);
-    }
-    catch (error){
-        resp.status(500).json({
-            msg: error.message
-        });
-    }
 });
 
 // To make sure that our database connects before our server does
@@ -41,4 +30,5 @@ const startserver = async () => {
     };
 };
 
+// Run the server
 startserver();
