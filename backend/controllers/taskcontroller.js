@@ -72,14 +72,43 @@ const UpdateTask = async (req, resp) => {
         const task = await task_model.findByIdAndUpdate(
             {_id: id},
             req.body,
-            {new: True}
+            {
+                new: true,
+                runValidators: true
+            }
         );
 
         if (!task){
             return resp.status(404).json(`NO TASK WITH THIS ID: ${id}`);
         };
 
-        resp.status(200).json("TASK Updated SUCCSFULLY");
+        resp.status(200).json(task);
+    }
+    catch (error){
+        resp.status(500).json({
+            msg: error.message
+        });
+    }
+};
+
+// Update a single field in a task from the DB
+const UpdateTaskSingleField = async (req, resp) => {
+    try{
+        const {id} = req.params;
+        const task = await task_model.findByIdAndUpdate(
+            {_id: id},
+            req.body,
+            {
+                new: true,
+                runValidators: true
+            }
+        );
+
+        if (!task){
+            return resp.status(404).json(`NO TASK WITH THIS ID: ${id}`);
+        };
+
+        resp.status(200).json(task);
     }
     catch (error){
         resp.status(500).json({
@@ -93,5 +122,6 @@ module.exports = {
     getTasks: getTasks,
     getTask: getTask,
     deleteTask: deleteTask,
-    UpdateTask: UpdateTask
+    UpdateTask: UpdateTask,
+    UpdateTaskSingleField: UpdateTaskSingleField
 };

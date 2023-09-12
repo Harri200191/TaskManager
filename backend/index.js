@@ -11,7 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use(taskroute);
+app.use(express.urlencoded({extended: false}));
+app.use("/api/tasks", taskroute);
 
 app.get("/", (req, resp) => {
     resp.send("Home Page");
