@@ -1,8 +1,19 @@
+// if we write npm start, it runs the index.js file
+// if we write npm run backend it starts nodemon index.js
 // npm run frontend is used to start the react app
+// npm run both to run front and back end
+
+import Tasklist from "./components/Tasklist";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   return (
-    <div>
-      <h1>Hello World</h1>
+    <div className="app">
+      <div className="task-container">
+          <Tasklist/>
+      </div>
+      <ToastContainer />
     </div>
   );
 }
