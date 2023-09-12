@@ -2,6 +2,7 @@
 // if we write npm run backend it starts nodemon index.js
 const express = require("express");
 const connectDB = require("./config/connectDB");
+const task_model = require("./model/task_model");
 const dotenv = require("dotenv");
 
 dotenv.config();
