@@ -6,13 +6,23 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 const app = express();
-connectDB();
 const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, resp) => {
     resp.send("Home Page");
 });
 
-app.listen(PORT, () => {
-    console.log("Server running on port: ", PORT);
-});
+// To make sure that our database connects before our server does
+const startserver = async () => {
+    try{
+        await connectDB();
+        app.listen(PORT, () => {
+            console.log("Server running on port: ", PORT);
+        });
+    }
+    catch (error){
+        console.warn(error)
+    };
+};
+
+startserver();
