@@ -65,9 +65,33 @@ const deleteTask = async (req, resp) => {
     }
 };
 
+// Update a task from the DB
+const UpdateTask = async (req, resp) => {
+    try{
+        const {id} = req.params;
+        const task = await task_model.findByIdAndUpdate(
+            {_id: id},
+            req.body,
+            {new: True}
+        );
+
+        if (!task){
+            return resp.status(404).json(`NO TASK WITH THIS ID: ${id}`);
+        };
+
+        resp.status(200).json("TASK Updated SUCCSFULLY");
+    }
+    catch (error){
+        resp.status(500).json({
+            msg: error.message
+        });
+    }
+};
+
 module.exports = {
     createTask: createTask,
     getTasks: getTasks,
     getTask: getTask,
-    deleteTask: deleteTask
+    deleteTask: deleteTask,
+    UpdateTask: UpdateTask
 };
