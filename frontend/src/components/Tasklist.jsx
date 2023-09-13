@@ -9,7 +9,8 @@ import loadingimage from "../assets/loading.gif"
 
 //http://localhost:5000/api/tasks
 
-const Tasklist = () => {
+const Tasklist = () => 
+{
   const [tasks, settasks] = useState([])
   const [completedtasks, setcompletedtasks] = useState([])
   const [isloading, setisloading] = useState(false)
@@ -52,7 +53,7 @@ const Tasklist = () => {
     }
     try{
       await axios.post(`${URL}/api/tasks/`, formData)
-      //toast.success("Task added succesfully!")
+      toast.success("Name added succesfully!")
       setformData({...formData, name: ""})
       getTasks()
     }
@@ -64,7 +65,7 @@ const Tasklist = () => {
   const deleteTask = async (id) => {
     try{
       await axios.delete(`${URL}/api/tasks/${id}`)
-      //toast.success("Task deleted succesfully!")
+      toast.success("Name deleted succesfully!")
       getTasks()
     }
     catch(error){
@@ -101,7 +102,7 @@ const Tasklist = () => {
       await axios.put(`${URL}/api/tasks/${taskID}`, formData)
       setformData({...formData, name: ""})
       setisediting(false)
-      //toast.success("Task Updated succesfully!")
+      toast.success("Name Updated succesfully!")
       getTasks()
     }
     catch(error){
@@ -109,11 +110,10 @@ const Tasklist = () => {
     }
   }
 
-
   const settocomplete= async (task) => {
     const newFormData = ({
       name: task.name,
-      completed: true
+      completed: !task.completed
     })
 
     try{
