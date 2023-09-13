@@ -130,7 +130,7 @@ const Tasklist = () =>
   return (
     <div>
       <h2 >Name Selecter App</h2>
-      <Taskform name={name} handleInputChange={handleInputChange} createTask={createTask} isediting ={isediting} updateTask= {updateTask} />
+      <Taskform name={tasks.name} handleInputChange={handleInputChange} createTask={createTask} isediting ={isediting} updateTask= {updateTask} />
       {
         tasks.length>0 && (
           <div className='--flex-between --pb'>
