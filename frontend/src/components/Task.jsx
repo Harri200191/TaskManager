@@ -1,12 +1,12 @@
 import React from 'react'
 import {FaCheckDouble, FaEdit, FaRegTrashAlt} from 'react-icons/fa'
 
-const Task = () => {
+const Task = ({task, index}) => {
   return (
     <div className='task'>
       <p>
-        <b>1. </b>
-        Name 1
+        <b>{index+1}.   </b>
+        {task.name}
       </p>
       <div className='task-icons'>
         <FaEdit />

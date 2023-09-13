@@ -5,7 +5,7 @@ import { useState } from 'react';
 import {toast} from 'react-toastify'
 import axios from 'axios'
 import { URL } from '../App';
-import loadingimage from "../assets/loader.gif"
+import loadingimage from "../assets/loading.gif"
 
 //http://localhost:5000/api/tasks
 
@@ -86,7 +86,7 @@ const Tasklist = () => {
           <>
             {tasks.map((task, index) => {
               return (
-                <Task/>
+                <Task key={task._id} task = {task} index = {index} />
               )
             })}
           </>
