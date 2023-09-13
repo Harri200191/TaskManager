@@ -54,6 +54,7 @@ const Tasklist = () => {
       await axios.post(`${URL}/api/tasks/`, formData)
       //toast.success("Task added succesfully!")
       setformData({...formData, name: ""})
+      getTasks()
     }
     catch(error){
       toast.error(error.message)
@@ -71,6 +72,13 @@ const Tasklist = () => {
     }
   }
 
+  useEffect(() =>{
+    const cTask = tasks.filter((task) => {
+      return task.completed === true
+    })
+
+    setcompletedtasks(cTask)
+  }, [tasks])
 
   const getsingletask= async (task) => {
     setformData({
@@ -101,18 +109,41 @@ const Tasklist = () => {
     }
   }
 
+
+  const settocomplete= async (task) => {
+    const newFormData = ({
+      name: task.name,
+      completed: true
+    })
+
+    try{
+      await axios.put(`${URL}/api/tasks/${task._id}`, newFormData)
+      getTasks()
+    }
+    catch(error){
+      toast.error(error.message)
+    }
+
+  }
+
+
   return (
     <div>
       <h2 >Name Selecter App</h2>
       <Taskform name={name} handleInputChange={handleInputChange} createTask={createTask} isediting ={isediting} updateTask= {updateTask} />
-      <div className='--flex-between --pb'>
-        <p>
-          <b>Total Names: </b> 0
-        </p>
-        <p>
-          <b>Selected People: </b> 0
-        </p>
-      </div>
+      {
+        tasks.length>0 && (
+          <div className='--flex-between --pb'>
+            <p>
+              <b>Total Names: </b> {tasks.length}
+            </p>
+            <p>
+              <b>Selected People: </b> {completedtasks.length}
+            </p>
+          </div>
+        )
+      }
+
       <hr />
       {
         isloading && (
@@ -123,13 +154,21 @@ const Tasklist = () => {
       }
       {
         !isloading && tasks.length === 0 ? (
-          <p className='--py'>No task added. Please add a task</p>
+          <p className='--py'>No Name added. Please add a Name</p>
         ) : 
         (
           <>
             {tasks.map((task, index) => {
               return (
-                <Task key={task._id} task = {task} index = {index} deleteTask ={deleteTask} updateTask= {updateTask} getsingletask ={getsingletask}/>
+                <Task 
+                  key={task._id} 
+                  task = {task} 
+                  index = {index} 
+                  deleteTask ={deleteTask} 
+                  updateTask= {updateTask} 
+                  getsingletask ={getsingletask}
+                  settocomplete = {settocomplete}
+                />
               )
             })}
           </>
