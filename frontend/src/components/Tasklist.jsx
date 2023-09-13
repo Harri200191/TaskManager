@@ -13,6 +13,8 @@ const Tasklist = () => {
   const [tasks, settasks] = useState([])
   const [completedtasks, setcompletedtasks] = useState([])
   const [isloading, setisloading] = useState(false)
+  const [isediting, setisediting] = useState(false)
+  const [taskID, settaskID] = useState("")
 
   const [formData, setformData] = useState({
     name: {},
@@ -50,8 +52,49 @@ const Tasklist = () => {
     }
     try{
       await axios.post(`${URL}/api/tasks/`, formData)
-      toast.success("Task added succesfully!")
+      //toast.success("Task added succesfully!")
       setformData({...formData, name: ""})
+    }
+    catch(error){
+      toast.error(error.message)
+    }
+  }
+
+  const deleteTask = async (id) => {
+    try{
+      await axios.delete(`${URL}/api/tasks/${id}`)
+      //toast.success("Task deleted succesfully!")
+      getTasks()
+    }
+    catch(error){
+      toast.error(error.message)
+    }
+  }
+
+
+  const getsingletask= async (task) => {
+    setformData({
+      name: task.name,
+      completed: false
+    })
+
+    settaskID(task._id)
+    setisediting(true)
+  }
+
+
+  const updateTask = async (e) => {
+    e.preventDefault()
+    if (name === ""){
+      return toast.error("Input can not be empty")
+    }
+
+    try{
+      await axios.put(`${URL}/api/tasks/${taskID}`, formData)
+      setformData({...formData, name: ""})
+      setisediting(false)
+      //toast.success("Task Updated succesfully!")
+      getTasks()
     }
     catch(error){
       toast.error(error.message)
@@ -61,7 +104,7 @@ const Tasklist = () => {
   return (
     <div>
       <h2 >Name Selecter App</h2>
-      <Taskform name={name} handleInputChange={handleInputChange} createTask={createTask}/>
+      <Taskform name={name} handleInputChange={handleInputChange} createTask={createTask} isediting ={isediting} updateTask= {updateTask} />
       <div className='--flex-between --pb'>
         <p>
           <b>Total Names: </b> 0
@@ -86,7 +129,7 @@ const Tasklist = () => {
           <>
             {tasks.map((task, index) => {
               return (
-                <Task key={task._id} task = {task} index = {index} />
+                <Task key={task._id} task = {task} index = {index} deleteTask ={deleteTask} updateTask= {updateTask} getsingletask ={getsingletask}/>
               )
             })}
           </>

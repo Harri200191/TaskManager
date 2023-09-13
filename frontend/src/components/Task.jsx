@@ -1,7 +1,7 @@
 import React from 'react'
 import {FaCheckDouble, FaEdit, FaRegTrashAlt} from 'react-icons/fa'
 
-const Task = ({task, index}) => {
+const Task = ({task, index, deleteTask, updateTask, getsingletask}) => {
   return (
     <div className='task'>
       <p>
@@ -9,9 +9,9 @@ const Task = ({task, index}) => {
         {task.name}
       </p>
       <div className='task-icons'>
-        <FaEdit />
+        <FaEdit onClick={() => getsingletask(task)} />
         <FaCheckDouble />
-        <FaRegTrashAlt />
+        <FaRegTrashAlt onClick={() => deleteTask(task._id)}/>
       </div>
     </div>
   )
