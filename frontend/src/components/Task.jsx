@@ -1,9 +1,18 @@
 import React from 'react'
+import {FaCheckDouble, FaEdit, FaRegTrashAlt} from 'react-icons/fa'
 
 const Task = () => {
   return (
-    <div>
-        <h2>Task 2</h2>
+    <div className='task'>
+      <p>
+        <b>1. </b>
+        Name 1
+      </p>
+      <div className='task-icons'>
+        <FaEdit />
+        <FaCheckDouble />
+        <FaRegTrashAlt />
+      </div>
     </div>
   )
 }
