@@ -6,6 +6,7 @@ import {toast} from 'react-toastify'
 import axios from 'axios'
 import { URL } from '../App';
 import loadingimage from "../assets/loading.gif"
+import MLModel from './MLModel';
 
 //http://localhost:5000/api/tasks
 
@@ -174,6 +175,17 @@ const Tasklist = () =>
           </>
         )
       }
+
+    <br/>
+    <hr/>
+    <br/>
+
+    <div className=''>
+      <h2>Text Summarization</h2>
+
+      <MLModel/>
+
+    </div>
     </div>
   )
 }

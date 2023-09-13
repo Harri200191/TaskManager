@@ -541,3 +541,35 @@ a:hover {
   margin-left: 7px;
   cursor: pointer;
 }
+
+.--butt
+{  background-color: purple; /* Background color */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Padding */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Add cursor pointer on hover */
+  align-items: center;
+  transform: translateX(220%);
+  font-size: medium;
+}
+
+/* Change button color on hover */
+input[type="button"]:hover {
+  background-color: #45a049;
+}
+
+/* Apply styles to the textarea */
+textarea {
+  font-family: Arial, sans-serif; /* Change font family */
+  font-size: 16px; /* Change font size */
+  padding: 10px; /* Padding */
+  border: 2px solid #ccc; /* Border style */
+  border-radius: 5px; /* Rounded corners */
+  resize: none; /* Prevent resizing */
+  width: 100%; /* Make it 100% width of its container */
+  height: 150px; /* Set a specific height */
+}
+
+
+
