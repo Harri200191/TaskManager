@@ -7,14 +7,17 @@ const connectDB = require("./config/connectDB");
 const task_model = require("./model/task_model");
 const taskroute = require("./routes/taskroute");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({extended: false}));
 app.use("/api/tasks", taskroute);
+
 
 app.get("/", (req, resp) => {
     resp.send("Home Page");
