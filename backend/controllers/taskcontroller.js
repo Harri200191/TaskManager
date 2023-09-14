@@ -117,11 +117,38 @@ const UpdateTaskSingleField = async (req, resp) => {
     }
 };
 
+
+
+
+
+const getDataFromName = async (req, resp) => {
+    
+    try{
+        const {name} = req.query;
+        const task = await task_model.find({ name: { $regex: name, $options: 'i' } });
+
+        if (!task){
+            return resp.status(404).json(`NO TASK WITH THIS NAME: ${name}`);
+        };
+
+        resp.status(200).json(task);
+    }
+    catch (error){
+        resp.status(500).json({
+            msg: error.message
+        });
+    }
+
+
+};
+
+
 module.exports = {
     createTask: createTask,
     getTasks: getTasks,
     getTask: getTask,
     deleteTask: deleteTask,
     UpdateTask: UpdateTask,
-    UpdateTaskSingleField: UpdateTaskSingleField
+    UpdateTaskSingleField: UpdateTaskSingleField,
+    getDataFromName: getDataFromName
 };

@@ -7,6 +7,7 @@ import axios from 'axios'
 import { URL } from '../App';
 import loadingimage from "../assets/loading.gif"
 import MLModel from './MLModel';
+import Search from './Search';
 
 //http://localhost:5000/api/tasks
 
@@ -19,7 +20,7 @@ const Tasklist = () =>
   const [taskID, settaskID] = useState("")
 
   const [formData, setformData] = useState({
-    name: {},
+    name: "",
     completed: false
   })
 
@@ -33,7 +34,7 @@ const Tasklist = () =>
   const getTasks = async() => {
     setisloading(true)
     try{
-      const {data} = await axios.get(`${URL}/api/tasks/`)
+      const {data} = await axios.get(`${URL}/api/tasks?name=`)
       settasks(data)
       setisloading(false)
     }
@@ -128,64 +129,77 @@ const Tasklist = () =>
   }
 
 
+
+  const searchfortherecord = async () => {
+    try{
+      const {data} = await axios.get(`${URL}/api/tasks/`)
+      getTasks()
+    }
+    catch(error){
+      toast.error(error.message)
+    }
+  }
+
+
   return (
+    
     <div>
-      <h2 >Name Selecter App</h2>
-      <Taskform name={tasks.name} handleInputChange={handleInputChange} createTask={createTask} isediting ={isediting} updateTask= {updateTask} />
-      {
-        tasks.length>0 && (
-          <div className='--flex-between --pb'>
-            <p>
-              <b>Total Names: </b> {tasks.length}
-            </p>
-            <p>
-              <b>Selected People: </b> {completedtasks.length}
-            </p>
-          </div>
-        )
-      }
+        <h2 >Name Selecter App</h2>
+        <Taskform name={name} handleInputChange={handleInputChange} createTask={createTask} isediting ={isediting} updateTask= {updateTask} />
+        {
+          tasks.length>0 && (
+            <div className='--flex-between --pb'>
+              <p>
+                <b>Total Names: </b> {tasks.length}
+              </p>
+              <p>
+                <b>Selected People: </b> {completedtasks.length}
+              </p>
+            </div>
+          )
+        }
 
-      <hr />
-      {
-        isloading && (
-          <div className="--flex-center">
-            <img src = {loadingimage} alt='Loading...'></img>
-          </div>
-        )
-      }
-      {
-        !isloading && tasks.length === 0 ? (
-          <p className='--py'>No Name added. Please add a Name</p>
-        ) : 
-        (
-          <>
-            {tasks.map((task, index) => {
-              return (
-                <Task 
-                  key={task._id} 
-                  task = {task} 
-                  index = {index} 
-                  deleteTask ={deleteTask} 
-                  updateTask= {updateTask} 
-                  getsingletask ={getsingletask}
-                  settocomplete = {settocomplete}
-                />
-              )
-            })}
-          </>
-        )
-      }
+        <hr />
+        {
+          isloading && (
+            <div className="--flex-center">
+              <img src = {loadingimage} alt='Loading...'></img>
+            </div>
+          )
+        }
+        {
+          !isloading && tasks.length === 0 ? (
+            <p className='--py'>No Name added. Please add a Name</p>
+          ) : 
+          (
+            <>
+              {tasks.map((task, index) => {
+                return (
+                  <Task 
+                    key={task._id} 
+                    task = {task} 
+                    index = {index} 
+                    deleteTask ={deleteTask} 
+                    updateTask= {updateTask} 
+                    getsingletask ={getsingletask}
+                    settocomplete = {settocomplete}
+                  />
+                )
+              })}
+            </>
+          )
+        }
 
-    <br/>
-    <hr/>
-    <br/>
+      <br/>
+      <hr/>
+      <br/>
 
-    <div className=''>
-      <h2>Text Summarization</h2>
+      <div className=''>
+        <h2>Text Summarization</h2>
 
-      <MLModel/>
+        <MLModel/>
 
-    </div>
+      </div>
     </div>
   )
 }

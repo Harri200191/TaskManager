@@ -14,7 +14,7 @@
   --color-purple: #9d0191;
   --color-orange: #ff7722;
 
-  --color-primary: #007bff;
+  --color-primary: #3700ff;
   --color-success: #28a745;
   --color-danger: orangered;
 }
@@ -182,6 +182,10 @@ p {
 .--color-primary {
   color: #007bff;
 }
+
+/* color: #007bff; */
+
+
 .--color-danger {
   color: orangered;
 }
@@ -439,8 +443,9 @@ a:hover {
   min-height: 100vh;
   background-color: var(--color-primary);
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: start;
+  align-items: center;
   padding: 0 10px;
 }
 
@@ -453,7 +458,7 @@ a:hover {
   border-radius: 5px;
   box-shadow: var(--box-shadow);
   overflow: hidden;
-  margin-top: 100px;
+  margin-top: 30px;
   padding: 3rem 2rem;
 }
 
@@ -542,6 +547,33 @@ a:hover {
   cursor: pointer;
 }
 
+.task-icons-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 7px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  size: 10px;
+  cursor: pointer;
+  font-size: 2rem;
+  transition: transform 0.2s ease;
+
+  border: none;
+  outline: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute; /* Position the button */
+  top: 50%; /* Position it vertically in the middle of the container */
+  transform: translateY(-50%); /* Center it vertically */
+  right: 5px; /* Adjust the right distance as needed */
+}
+
+.task-icons-search:hover {
+  transform: scale(1.5); 
+}
+
 .--butt
 {  background-color: purple; /* Background color */
   color: white; /* Text color */
@@ -571,5 +603,68 @@ textarea {
   height: 150px; /* Set a specific height */
 }
 
+.search-area{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
 
+.search-input {
+  border: none;
+  outline: none;
+  padding: 10px;
+  margin-top: 30px;
+  font-size: 16px;
+  width: 300px; /* Adjust the width as needed */
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
 
+}
+
+.Search-btn{
+  margin-top: 30px;
+  width: 25%;
+  height: 3.8rem;
+  font-size: 1.7rem;
+  cursor: pointer;
+  background-color: var(--color-purple);
+  color: #fff;
+  border: none;
+  transition: all 0.9s;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.Search-btn:hover {
+  background-color: var(--color-danger);
+}
+
+.search-element {
+  display:flex
+}
+
+/* Style for the results section */
+.results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  max-height: 300px; /* Adjust the max height as needed */
+  overflow-y: auto;
+  display: none; /* Initially hidden */
+}
+
+.result {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+input[type="text"]:focus + .results {
+  display: block;
+}
