@@ -23,7 +23,7 @@ const MLModel = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputText != "") {
-      const resultText = query({ inputs: inputText }).then((response) => {
+      const resultText = query({ "inputs": inputText , "return_full_text": true }).then((response) => {
         setResult(response[0].generated_text);
       });
     } else {
