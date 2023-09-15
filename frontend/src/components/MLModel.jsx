@@ -7,7 +7,7 @@ const MLModel = () => {
       "https://api-inference.huggingface.co/models/Hari93/res",
       {
         headers: {
-          Authorization: "Bearer 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",
+          Authorization: process.env.AUTH_KEY,
         },
         method: "POST",
         body: JSON.stringify(data),
