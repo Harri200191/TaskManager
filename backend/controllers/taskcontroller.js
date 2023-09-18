@@ -138,9 +138,17 @@ const getDataFromName = async (req, resp) => {
             msg: error.message
         });
     }
-
-
 };
+
+const ClearDB = async (req, res) => {
+    try {
+      await task_model.deleteMany({});
+      res.status(200).json({ message: 'Database cleared successfully.' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'An error occurred while clearing the database.' });
+    }
+  }
 
 
 module.exports = {
@@ -150,5 +158,6 @@ module.exports = {
     deleteTask: deleteTask,
     UpdateTask: UpdateTask,
     UpdateTaskSingleField: UpdateTaskSingleField,
-    getDataFromName: getDataFromName
+    getDataFromName: getDataFromName,
+    ClearDB: ClearDB
 };

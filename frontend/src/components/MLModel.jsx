@@ -68,9 +68,7 @@ const MLModel = () => {
     e.preventDefault();
     if (inputText != "") {
         const resultText = query({ "inputs": inputText , "return_full_text": true }).then((response) => {
-          console.log(response)
-          setResult(response[0].generated_text);
-          console.log(response);
+          setResult(response[0].summary_text);
           setisloading(false)
         }); 
         const resultsentiment = query2({"inputs": inputText}).then((response) => {
