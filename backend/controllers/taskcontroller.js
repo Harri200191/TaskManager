@@ -1,5 +1,7 @@
 const express = require("express");
 const task_model = require("../model/task_model");
+const fs = require('fs/promises'); 
+const flagFilePath = require("../middlewares/TrackDeletion")
 
 // Create a new task and add it to DB
 const createTask = async (req, resp) => {
@@ -140,14 +142,16 @@ const getDataFromName = async (req, resp) => {
     }
 };
 
+
 const ClearDB = async (req, res) => {
     try {
-      await task_model.deleteMany({});
-      res.status(200).json({ message: 'Database cleared successfully.' });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'An error occurred while clearing the database.' });
-    }
+        await task_model.deleteMany({});
+        await fs.writeFile(flagFilePath, 'Database cleared.');
+        res.status(200).json({ message: 'Database cleared successfully.' });
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'An error occurred while clearing the database.' });
+      }
   }
 
 

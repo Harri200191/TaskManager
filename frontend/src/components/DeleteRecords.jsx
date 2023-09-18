@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
-function DatabaseClear() {
+const DatabaseClear = () => {
   useEffect(() => {
     // Make an API request to the backend route when the component mounts
     axios.get(`${URL}/api/tasks/clear-database`)
