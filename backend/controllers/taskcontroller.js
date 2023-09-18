@@ -146,7 +146,6 @@ const getDataFromName = async (req, resp) => {
 const ClearDB = async (req, res) => {
     try {
         await task_model.deleteMany({});
-        await fs.writeFile(getflagFilePath(), 'Database cleared.');
         res.status(200).json({ message: 'Database cleared successfully.' });
     } catch (err) {
         console.error(err);
