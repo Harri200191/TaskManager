@@ -127,8 +127,6 @@ const Tasklist = () =>
 
   }
 
-
-
   const searchfortherecord = async () => {
     try{
       const {data} = await axios.get(`${URL}/api/tasks/`)

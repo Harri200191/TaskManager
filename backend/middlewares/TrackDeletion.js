@@ -1,6 +1,6 @@
 const fs = require('fs/promises'); 
 
-const flagFilePath = './database-cleared.flag';
+const flagFilePath = './backend/database-cleared.flag';
 exports.getflagFilePath = () => {
     return flagFilePath;
   };
