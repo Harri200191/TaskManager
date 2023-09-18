@@ -721,3 +721,21 @@ input[type="text"]:focus + .results {
 .--butt:hover {
   background-color: var(--color-primary);
 }
+
+.Result-Sent p{
+  display:inline;
+}
+
+.Summary-head{
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 5px;
+}
+
+.Final-Head{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
