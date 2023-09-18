@@ -7,7 +7,7 @@ const Taskform = ({createTask, name, handleInputChange, isediting, updateTask}) 
     <form className='task-form' onSubmit={isediting ?updateTask :createTask}>
 
         <input type='Text' placeholder='Add a name...' name="name" value ={name} onChange={handleInputChange}/>
-        <button type='submit'>
+        <button id = "clickButton" type='submit'>
             {isediting ? "Edit" : "Select"}
         </button>
         

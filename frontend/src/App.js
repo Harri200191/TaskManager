@@ -13,9 +13,6 @@ export const URL = process.env.REACT_APP_SERVER_URL
 function App() {
   return (
     <div className="app">
-      <div className="search-area">
-        <Search/>
-      </div>
       <div className="task-container">
           <Tasklist/>
       </div>
