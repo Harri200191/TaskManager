@@ -3,22 +3,32 @@ import { useState } from "react";
 import loadingimage from "../assets/loading.gif"
 import mouseClick from "../assets/mouse-click.mp3";
 import {Howl, Howler} from "howler";
+import SoundButton from "./SoundButton";
 
 const MLModel = () => {
-
-  const SoundPlay = (src) => {
-    const sound = new Howl(src);
-    sound.play();
-  };
-
-  Howler.volume(1.0);
-
   const [isloading, setisloading] = useState(false)
   const [inputText, setInputText] = useState("");
   const [result, setResult] = useState("");
+  const [text, setText] = useState('');
+  const [wordCount, setWordCount] = useState(0);
+
+  // Function to update the state and count words
+  const handleTextChange = (e) => {
+    const newText = e.target.value;
+    setText(newText);
+
+    // Split the text by whitespace to count words
+    const words = newText.split(/\s+/);
+
+    // Remove empty strings from the array (e.g., consecutive spaces)
+    const filteredWords = words.filter((word) => word !== '');
+
+    // Update the word count
+    setWordCount(filteredWords.length);
+  };
 
   async function query(data) {
-    setisloading(true)
+    setisloading(true);
     const response = await fetch(
       "https://api-inference.huggingface.co/models/Hari93/res",
       {
@@ -35,11 +45,13 @@ const MLModel = () => {
     return result;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (inputText != "") {
       const resultText = query({ "inputs": inputText , "return_full_text": true }).then((response) => {
         setResult(response[0].generated_text);
+        console.log(response);
+        setisloading(false)
       });
     } else {
       setResult("");
@@ -53,14 +65,19 @@ const MLModel = () => {
           id="inputText"
           type="text"
           value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
+          onChange={(e) => {
+            setInputText(e.target.value)
+            handleTextChange(e)
+            }
+          }
           placeholder="Add the text that you want to summarize...."
           rows="15"
           cols="60"
         />
-        <button onClick={this.SoundPlay(mouseClick)} id = "clickButton" className="--butt" type="submit">
-          Submit
-        </button>
+
+        <SoundButton/>
+        
+        <p><b><i>Word Count:</i></b> {wordCount}</p>
       </form>
       {      
       isloading && (

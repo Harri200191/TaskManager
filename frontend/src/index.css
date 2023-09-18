@@ -714,9 +714,8 @@ input[type="text"]:focus + .results {
   }
 }
 
---butt.clicked {
-  background-color: #e74c3c;
-  transform: translateY(5px); /* Move the button down by 5 pixels */
+.--butt:active {
+  background-color: var(--color-success); /* New color when clicked */
 }
 
 .--butt:hover {
