@@ -39,7 +39,7 @@ const MLModel = () => {
     const response = await fetch(
       "https://api-inference.huggingface.co/models/SamLowe/roberta-base-go_emotions",
       {
-        headers: { Authorization: "Bearer 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" },
+        headers: { Authorization: process.env.REACT_APP_AUTH_KEY },
         method: "POST",
         body: JSON.stringify(data),
       }
@@ -53,7 +53,7 @@ const MLModel = () => {
     const response = await fetch(
       "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
       {
-        headers: { Authorization: "Bearer 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" },
+        headers: { Authorization: process.env.REACT_APP_AUTH_KEY },
         method: "POST",
         body: JSON.stringify(data),
       }
@@ -72,6 +72,7 @@ const MLModel = () => {
           setisloading(false)
         }); 
         const resultsentiment = query2({"inputs": inputText}).then((response) => {
+          console.log(response);
           setResult_Sent(response[0][0]);
           setResult_Sent2(response[0][1]);
           setResult_Sent3(response[0][2]);

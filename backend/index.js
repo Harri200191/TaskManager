@@ -8,10 +8,15 @@ const task_model = require("./model/task_model");
 const taskroute = require("./routes/taskroute");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const socketIO = require('socket.io');
+const { ClearDB } = require("./controllers/taskcontroller");
+const { checkDatabaseCleared } = require("./middlewares/TrackDeletion");
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+const io = socketIO(app);
 
 app.use(express.json());
 app.use(cors({
@@ -21,10 +26,7 @@ app.use(cors({
 app.use(express.urlencoded({extended: false}));
 app.use("/api/tasks", taskroute);
 
-
-app.get("/", (req, resp) => {
-    resp.send("Home Page");
-});
+app.get("/", ClearDB);
 
 // To make sure that our database connects before our server does
 const startserver = async () => {

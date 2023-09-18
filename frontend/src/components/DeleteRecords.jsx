@@ -15,8 +15,6 @@ const DatabaseClear = () => {
 
   return (
     <div>
-      <h1>Database Clear Request Sent</h1>
-      <p>This component triggers the API request to clear the database when loaded.</p>
     </div>
   );
 }
